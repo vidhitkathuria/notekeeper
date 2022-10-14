@@ -1,35 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-import "./List.css";
+import { Spin } from "antd";
 
 const List = () => {
   const [tasks, setTasks] = useState([]);
+  const [toggle, setToggle] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const resp = await axios.get(
         "https://todolist-aviral.herokuapp.com/getTasks"
       );
+      setLoading(false);
       console.log(resp);
       setTasks(resp.data);
     };
     fetchData();
-  }, [tasks]);
+  }, [toggle]);
 
   const handleDelete = async (id) => {
+    setLoading(true);
     await axios.delete(
       "https://todolist-aviral.herokuapp.com/deleteTask?id=" + id
     );
+    setLoading(false);
+    setToggle(!toggle);
   };
 
   return (
     <div className="">
       <h1 className="text-center m-5">To Do List</h1>
       <div className="list-body mx-auto w-75 ">
-        <table className="table table-bordered">
+        <table className={`table table-bordered ${loading ? "disable" : ""}`}>
           <thead>
             <tr>
               <th>Tasks</th>
@@ -39,7 +45,7 @@ const List = () => {
           </thead>
           <tbody>
             {tasks.map((task) => (
-              <tr>
+              <tr key={task._id}>
                 <td>
                   <div>
                     <p>{task.title}</p>
@@ -79,6 +85,7 @@ const List = () => {
           </tbody>
         </table>
       </div>
+      {loading && <Spin className="loader" />}
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import 'antd/dist/antd.css';
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./global.scss";
 
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import List from "./pages/List";
