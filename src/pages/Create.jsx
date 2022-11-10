@@ -6,8 +6,8 @@ import { Spin } from "antd";
 const Create = () => {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {

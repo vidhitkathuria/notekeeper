@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Spin } from "antd";
 
+
 const Update = () => {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
@@ -22,7 +23,7 @@ const Update = () => {
       setContent(resp.data.content);
     };
     fetchData();
-  }, []);
+  }, [_id]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
